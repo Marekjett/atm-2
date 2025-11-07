@@ -3,46 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>TCP GUI Client</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-    <style>
-        body { font-family: Arial; margin: 2rem; }
-        #console { width: 100%; height: 300px; border: 1px solid #ccc; padding: 10px; overflow-y: auto; background: #f0f0f0; }
-        #input { width: 80%; padding: 10px; }
-        #send { padding: 10px; }
-    </style>
+    <script defer src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
     <h2>TCP Client GUI</h2>
     <div id="console"></div>
     <input type="text" id="input" placeholder="Wpisz komendę..." />
     <button id="send">Wyślij</button>
-
-    <script>
-        const socket = io();
-
-        const consoleDiv = document.getElementById("console");
-        const input = document.getElementById("input");
-        const sendBtn = document.getElementById("send");
-
-        function addMessage(msg) {
-            consoleDiv.innerHTML += msg + "<br>";
-            consoleDiv.scrollTop = consoleDiv.scrollHeight;
-        }
-
-        sendBtn.addEventListener("click", () => {
-            const msg = input.value.trim();
-            if(msg === "") return;
-            socket.emit("send_message", msg);
-            input.value = "";
-        });
-
-        input.addEventListener("keypress", e => {
-            if(e.key === "Enter") sendBtn.click();
-        });
-
-        socket.on("receive_message", msg => {
-            addMessage(msg);
-        });
-    </script>
 </body>
 </html>

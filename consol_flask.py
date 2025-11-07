@@ -39,13 +39,31 @@ else:
     raise ValueError("Nie udało się połączyć z serwerem")
 
 # Funkcja wysyłania wiadomości do serwera TCP
+import time  # dodaj na początku pliku
+
+
+# Funkcja wysyłania wiadomości do serwera TCP
 def send_to_server(msg):
     if msg in in_serv:
         in_serv[msg]()
         return f"[LOCAL] Wykonano komendę {msg}"
+
+    if msg.lower() == "ping":
+        start_time = time.time()
+        tcp_sock.sendall(msg.encode())
+        data = tcp_sock.recv(1024)
+        end_time = time.time()
+        try:
+            server_time = float(data.decode())
+            ping_ms = (end_time - start_time) * 1000  # ping w ms
+            return f"[PING] {ping_ms:.2f} ms"
+        except ValueError:
+            return f"[ERROR] Nieprawidłowa odpowiedź serwera: {data.decode()}"
+
     tcp_sock.sendall(msg.encode())
     data = tcp_sock.recv(1024)
     return f"[SERVER]: {data.decode()}"
+
 
 # Strona główna
 @app.route("/")
