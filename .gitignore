@@ -1,0 +1,41 @@
+# --- Python cache & compiled files ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- IDE / Editor ---
+.idea/
+.vscode/
+*.iml
+
+# --- Build / Distribution ---
+build/
+dist/
+*.egg-info/
+*.spec
+
+# --- Logs / Config ---
+*.log
+*.ini
+*.cfg
+*.bak
+
+# --- System files ---
+.DS_Store
+Thumbs.db
+
+# --- PyInstaller / cx_Freeze outputs ---
+*.manifest
+*.spec
+*.exe
+*.dll
+
+# --- Tests ---
+.coverage
+.pytest_cache/
